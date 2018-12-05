@@ -1,0 +1,4 @@
+*.apk
+apk/
+node_modules
+screenshots
