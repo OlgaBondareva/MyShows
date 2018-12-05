@@ -1,0 +1,20 @@
+{
+  "name": "my-shows",
+  "version": "1.0.0",
+  "description": "android testing of application",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "jasmine": "^3.3.0",
+    "underscore": "^1.9.1",
+    "wd": "^1.11.1",
+    "wdio": "^3.0.0"
+  },
+  "scripts": {
+    "test": "node node_modules/jasmine/bin/jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OlgaBondareva/MyShows.git"
+  }
+}
