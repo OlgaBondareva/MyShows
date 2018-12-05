@@ -11,11 +11,10 @@
 4. I can add watched episodes  
 
 5. I can open my profile on web version  
+6. I can view stars of my profile  
+7. I can view profiles of my friends  
 
-6. I can learn about new episodes release dates  
-
-7. I can view stars of my profile  
-8. I can view profiles of my friends  
+8. I can learn about new episodes release dates  
  
 9. I can find serial with search field  
 10. I can read full description of the serial  
@@ -27,4 +26,4 @@
 1. I can turn on dark theme  
 
 ### Non functional testing
-1. I can turn over phone and app will run correctly
+1. I can turn over phone and app will run correctly  
