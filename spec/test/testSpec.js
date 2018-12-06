@@ -1,10 +1,11 @@
 let wd = require('wd')
 let serverConfigs = require('../helpers/appium-servers')
 let  _ = require('../../node_modules/underscore')
+let loginPage = require('../pageObject/loginPage.js')
 
 describe('MyShows', function () {
-    let driver
-    
+    let driver    
+    let logPage
 
     beforeAll(function() {
         let serverConfig = serverConfigs.local
@@ -15,11 +16,12 @@ describe('MyShows', function () {
         return driver.init(desired).setImplicitWaitTimeout(30000)
     })
 
-    it ('should login with right credentials', function () {
-        return driver
-        .elementByAccessibilityId('android:id/button3')
-        .click()
-        .elementByAccessibilityId('ru.myshows.activity:id/login_field')
-        .type("test_test_test")
+    afterAll(async function () {
+        return await driver.quit()
+    })
+
+    it ('should login with right credentials', async function () {
+        logPage = new loginPage(driver)
+        await logPage.enterCredentialsAndSubmit('test_test_test', '123456')  
     })
 })
