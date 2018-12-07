@@ -1,1 +1,1 @@
-exports.androidApiDemos = "../../apk/MyShows.apk"
+exports.androidApiDemos = '../../apk/MyShows.apk'
