@@ -1,11 +1,7 @@
-## "MyShows" checklist  
-
-### Login  
-1. I can login with right credentials  
-2. I can't login with wrong credentials  
+## "MyShows" checklist
 
 ### Functionality  
-1. I can add watching now episodes  
+1. I can add watching now episodes
 2. I can left episodes for later watch  
 3. I can add cancelled episodes  
 4. I can add watched episodes  

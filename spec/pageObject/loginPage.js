@@ -5,7 +5,6 @@ class loginPage extends basePage {
   constructor (driver) {
     super(driver)
     this.loginField = ['id', 'ru.myshows.activity:id/login_field']
-    this.loginField = ['id', 'ru.myshows.activity:id/login_field']
     this.passField = ['id', 'ru.myshows.activity:id/password_field']
     this.loginButton = ['id', 'ru.myshows.activity:id/login_button']
   }
@@ -27,6 +26,7 @@ class loginPage extends basePage {
     await this.typePassword(password)
     await this.clickLoginButton()
   }
+
 }
 
 module.exports = loginPage
