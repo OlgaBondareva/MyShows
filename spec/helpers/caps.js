@@ -5,5 +5,7 @@ exports.android27 = {
   'clearSystemFiles': true,
   automationName: 'uiautomator2',
   appPackage: 'ru.myshows.activity',
-  appActivity: 'ru.myshows.activity.MainActivity'
+  appActivity: 'ru.myshows.activity.MainActivity',
+  noReset: true,
+  printPageSourceOnFindFailure: true
 }
