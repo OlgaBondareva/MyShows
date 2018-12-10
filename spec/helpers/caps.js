@@ -6,6 +6,5 @@ exports.android27 = {
   automationName: 'uiautomator2',
   appPackage: 'ru.myshows.activity',
   appActivity: 'ru.myshows.activity.MainActivity',
-  noReset: true,
-  printPageSourceOnFindFailure: true
+  noReset: true
 }

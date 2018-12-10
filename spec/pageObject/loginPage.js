@@ -1,6 +1,6 @@
-let basePage = require('.//basePage')
+let navigationDrawer = require('.//navigationDrawer')
 
-class loginPage extends basePage {
+class loginPage extends navigationDrawer {
 
   constructor (driver) {
     super(driver)

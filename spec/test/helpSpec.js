@@ -1,15 +1,12 @@
+let credentials = require('../properties/creds')
 let wd = require('wd')
 let serverConfigs = require('../helpers/appium-servers')
 let _ = require('../../node_modules/underscore')
-let credentials = require('../properties/creds')
-let loginPage = require('../pageObject/loginPage')
-let settingsPage = require('../pageObject/settingsPage')
+let loginPage = require('../pageObject/loginPage.js')
 
 describe('MyShows', function () {
   let driver
-  let login, settings
-  let app = '../helpers/app'
-  let caps = '../helpers/caps'
+  let logPage
 
   beforeAll(function () {
     let serverConfig = serverConfigs.local
@@ -21,13 +18,12 @@ describe('MyShows', function () {
   })
 
   afterAll(async function () {
-    await settings.logout()
+    return await driver.quit()
   })
 
   it('should login with right credentials', async function () {
-    login = new loginPage(driver)
-    await login.enterCredentialsAndSubmit(credentials.login, credentials.pass)
-    settings = new settingsPage(login.getDriver())
-    await settings.changeThemeToBlack(serverConfigs.local, app, caps, 30000)
+    logPage = new loginPage(driver)
+    await logPage.enterCredentialsAndSubmit(credentials.login, credentials.pass)
+    await logPage.logout()
   })
 })
