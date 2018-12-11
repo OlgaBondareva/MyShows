@@ -6,10 +6,6 @@ class basePage {
     this.driver = driver
   }
 
-  async getCurActivity () {
-    return await this.driver.getCurrentActivity()
-  }
-
   getDriver () {
     return this.driver
   }
