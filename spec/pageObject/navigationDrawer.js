@@ -1,7 +1,7 @@
 let basePage = require('.//basePage')
 let locators = require('../properties/locators')
 
-class navigationDrawer extends basePage {
+class navigationDrawer extends basePage{
   constructor (driver) {
     super(driver)
     // xpath
@@ -15,6 +15,11 @@ class navigationDrawer extends basePage {
     // id
     this.logoutAlert = 'ru.myshows.activity:id/alertTitle'
     this.yesOnExit = 'android:id/button1'
+  }
+
+  async isLoggedIn () {
+    let navDrawer = await this.driver.elementByXPath(this.navigationDrawerButton)
+    return navDrawer !== undefined
   }
 
   async logout () {

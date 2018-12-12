@@ -4,6 +4,5 @@ exports.android27 = {
   deviceName: 'Nexus 5X API 27',
   automationName: 'uiautomator2',
   appPackage: 'ru.myshows.activity',
-  appActivity: 'ru.myshows.activity.MainActivity',
-  // noReset: true
+  appActivity: 'ru.myshows.activity.MainActivity'
 }
