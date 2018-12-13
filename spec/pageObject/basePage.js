@@ -7,12 +7,13 @@ class basePage {
     wd.addPromiseChainMethod('tap', actions.tap)
 
     this.driver = driver
-    // id
-    this.searchButton = 'ru.myshows.activity:id/action_search'
-    this.searchField = 'ru.myshows.activity:id/search_src_text'
-    // xpath
-    this.searchResults = '//android.support.v7.widget.RecyclerView/android.widget.RelativeLayout/android.widget.TextView'
   }
+
+  get searchButton () { return this.driver.elementById('ru.myshows.activity:id/action_search')}
+
+  get searchField () { return this.driver.elementById('ru.myshows.activity:id/search_src_text')}
+
+  get searchResults () { return this.driver.elementsByXPath('//android.support.v7.widget.RecyclerView/android.widget.RelativeLayout/android.widget.TextView')}
 
   getDriver () {
     return this.driver
@@ -32,15 +33,15 @@ class basePage {
   }
 
   async searchShow (serial) {
-    await this.driver.elementById(this.searchButton).click()
-    await this.driver.elementById(this.searchField).sendKeys(serial)
+    await this.searchButton.click()
+    await this.searchField.sendKeys(serial)
     // tap the search button on mobile keyboard
     await this.driver.tap({x: 992, y: 1698})
   }
 
   async getSearchResults () {
     let results = []
-    let elements = await this.driver.elementsByXPath(this.searchResults)
+    let elements = await this.searchResults
     for (let i = 0; i < elements.length; i++) {
       results.push(await elements[i].text())
     }

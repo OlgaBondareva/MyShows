@@ -4,22 +4,25 @@ let locators = require('../properties/locators')
 class navigationDrawer extends basePage {
   constructor (driver) {
     super(driver)
-    // xpath
-    this.navigationDrawerButton = '//android.widget.ImageButton[@content-desc="Open navigation drawer"]'
-    this.episodesButton = locators.navigationDrawerXpath + '[1]'
-    this.showsButton = locators.navigationDrawerXpath + '[2]'
-    this.newsButton = locators.navigationDrawerXpath + '[3]'
-    this.settingsButton = locators.navigationDrawerXpath + '[4]'
-    this.hideAdvertisingButton = locators.navigationDrawerXpath + '[5]'
-    this.logoutButton = locators.navigationDrawerXpath + '[6]'
-    // id
-    this.logoutAlert = 'ru.myshows.activity:id/alertTitle'
-    this.yesOnExit = 'android:id/button1'
   }
 
-  async clickHamburgerIcon () {
-    await this.driver.elementByXPath(this.navigationDrawerButton).click()
-  }
+  get navigationDrawerButton () {return this.driver.elementByXPath('//android.widget.ImageButton[@content-desc="Open navigation drawer"]')}
+
+  get episodesButton () {return this.driver.elementByXPath(locators.navigationDrawerXpath + '[1]')}
+
+  get showsButton () {return this.driver.elementByXPath(locators.navigationDrawerXpath + '[2]')}
+
+  get newsButton () {return this.driver.elementByXPath(locators.navigationDrawerXpath + '[3]')}
+
+  get settingsButton () {return this.driver.elementByXPath(locators.navigationDrawerXpath + '[4]')}
+
+  get hideAdvertisingButton () {return this.driver.elementByXPath(locators.navigationDrawerXpath + '[5]')}
+
+  get logoutButton () {return this.driver.elementByXPath(locators.navigationDrawerXpath + '[6]')}
+
+  get logoutAlert () {return this.driver.elementById('ru.myshows.activity:id/alertTitle')}
+
+  get yesOnExit () {return this.driver.elementById('android:id/button1')}
 
   async isLoggedIn () {
     let navDrawer = await this.driver.elementByXPath(this.navigationDrawerButton)
@@ -27,21 +30,22 @@ class navigationDrawer extends basePage {
   }
 
   async logout () {
-    await this.clickHamburgerIcon()
-    await this.driver.elementByXPath(this.logoutButton).click()
+    await this.navigationDrawerButton.click()
+    await this.logoutButton.click()
+    // todo
+    // fix. Change wait method or add xpath to constructor
     await this.driver.waitForElementByXPath(this.logoutAlert, 30000)
-    return await this.driver.elementById(this.yesOnExit).click()
+    return await this.yesOnExit.click()
   }
 
   async openSettings () {
-    await this.clickHamburgerIcon()
-    return await this.driver.elementByXPath(this.settingsButton).click()
+    await this.navigationDrawerButton.click()
+    return await this.settingsButton.click()
   }
 
-
-  async openEpisodes() {
-    await this.clickHamburgerIcon()
-    await this.driver.elementByXPath(this.episodesButton).click()
+  async openEpisodes () {
+    await this.navigationDrawerButton.click()
+    await this.episodesButton.click()
   }
 }
 

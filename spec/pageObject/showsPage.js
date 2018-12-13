@@ -3,15 +3,15 @@ let showPage = require('.//showPage')
 class showsPage extends showPage {
   constructor (driver) {
     super(driver)
-    // xpath
-    this.visibleSerials = '//android.support.v7.widget.RecyclerView//android.widget.TextView[@class=\'android.widget.TextView\']'
   }
+
+  get visibleSerials () {return this.driver.elementByXPath('//android.support.v7.widget.RecyclerView//android.widget.TextView[@class=\'android.widget.TextView\']')}
 
   async findAndOpenShowInRecommended (serial) {
     // tap in the center to find more shows
     await this.driver.tap({x: 540, y: 960})
     while (true) {
-      let visibleRecommendations = await this.driver.elementsByXPath(this.visibleSerials)
+      let visibleRecommendations = await this.visibleSerials
       for (let i = 0; i < visibleRecommendations.length; i++) {
         let nextSerial = await visibleRecommendations[i].text()
         if (nextSerial === serial) {

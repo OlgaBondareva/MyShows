@@ -4,24 +4,26 @@ class loginPage extends navigationDrawer {
 
   constructor (driver) {
     super(driver)
-    // id
-    this.loginField = 'ru.myshows.activity:id/login_field'
-    this.passField = 'ru.myshows.activity:id/password_field'
-    this.loginButton = 'ru.myshows.activity:id/login_button'
-    // xpath
-    this.title = '//android.widget.ScrollView/android.widget.LinearLayout/android.widget.TextView'
   }
 
+  get title () {return this.driver.elementByXPath('//android.widget.ScrollView/android.widget.LinearLayout/android.widget.TextView')}
+
+  get loginButton () {return this.driver.elementById('ru.myshows.activity:id/login_button')}
+
+  get passField () {return this.driver.elementById('ru.myshows.activity:id/password_field')}
+
+  get loginField () {return this.driver.elementById('ru.myshows.activity:id/login_field')}
+
   async typeLogin (login) {
-    await this.driver.elementById(this.loginField).type(login)
+    await this.loginField.type(login)
   }
 
   async typePassword (pass) {
-    await this.driver.elementById(this.passField).type(pass)
+    await this.passField.type(pass)
   }
 
   async clickLoginButton () {
-    await this.driver.elementById(this.loginButton).click()
+    await this.loginButton.click()
   }
 
   async enterCredentialsAndSubmit (login, password) {
@@ -31,7 +33,7 @@ class loginPage extends navigationDrawer {
   }
 
   async getTitle () {
-    return await this.driver.elementByXPath(this.title).text()
+    return await this.title.text()
   }
 
 }
