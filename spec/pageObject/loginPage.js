@@ -9,7 +9,7 @@ class loginPage extends navigationDrawer {
     this.passField = 'ru.myshows.activity:id/password_field'
     this.loginButton = 'ru.myshows.activity:id/login_button'
     // xpath
-    this.title = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.view.ViewGroup/android.support.v4.widget.DrawerLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TextView'
+    this.title = '//android.widget.ScrollView/android.widget.LinearLayout/android.widget.TextView'
   }
 
   async typeLogin (login) {
