@@ -1,7 +1,7 @@
 let basePage = require('.//basePage')
 let locators = require('../properties/locators')
 
-class navigationDrawer extends basePage{
+class navigationDrawer extends basePage {
   constructor (driver) {
     super(driver)
     // xpath
@@ -17,21 +17,31 @@ class navigationDrawer extends basePage{
     this.yesOnExit = 'android:id/button1'
   }
 
+  async clickHamburgerIcon () {
+    await this.driver.elementByXPath(this.navigationDrawerButton).click()
+  }
+
   async isLoggedIn () {
     let navDrawer = await this.driver.elementByXPath(this.navigationDrawerButton)
     return navDrawer !== undefined
   }
 
   async logout () {
-    await this.driver.elementByXPath(this.navigationDrawerButton).click()
+    await this.clickHamburgerIcon()
     await this.driver.elementByXPath(this.logoutButton).click()
     await this.driver.waitForElementByXPath(this.logoutAlert, 30000)
     return await this.driver.elementById(this.yesOnExit).click()
   }
 
   async openSettings () {
-    await this.driver.elementByXPath(this.navigationDrawerButton).click()
+    await this.clickHamburgerIcon()
     return await this.driver.elementByXPath(this.settingsButton).click()
+  }
+
+
+  async openEpisodes() {
+    await this.clickHamburgerIcon()
+    await this.driver.elementByXPath(this.episodesButton).click()
   }
 }
 

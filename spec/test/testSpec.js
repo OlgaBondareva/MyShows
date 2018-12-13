@@ -2,7 +2,7 @@ let wd = require('wd')
 let serverConfigs = require('../helpers/appium-server')
 let credentials = require('../properties/creds')
 let loginPage = require('../pageObject/loginPage')
-let episodesPage = require('../pageObject/episodesPage')
+let episodesPage = require('../pageObject/showsPage')
 // let helper = require('../helpers/specHelper')
 
 describe('MyShows', function () {
@@ -45,6 +45,8 @@ describe('MyShows', function () {
 
   it('should login with right credentials', async function () {
     episodes = await new episodesPage(login.getDriver())
-    await episodes.getRecommendedEpisodes()
+    // await episodes.findAndOpenShowInRecommended('Death Note')
+    let isAdded = await episodes.addToWatching('Death Note')
+    expect(isAdded).toBeTrue()
   })
 })

@@ -1,42 +1,41 @@
-let navDrawer = require('.//navigationDrawer')
 let showPage = require('.//showPage')
 
-class showsListPage extends navDrawer, showPage {
+class showsPage extends showPage {
   constructor (driver) {
     super(driver)
     // xpath
     this.visibleSerials = '//android.support.v7.widget.RecyclerView//android.widget.TextView[@class=\'android.widget.TextView\']'
   }
 
-  async findShowInRecommended (serial) {
+  async findAndOpenShowInRecommended (serial) {
     // tap in the center to find more shows
     await this.driver.tap({x: 540, y: 960})
     while (true) {
-      let visibleRecommended = await this.driver.elementsByXPath(this.visibleSerials)
-      for (let i = 0; i < visibleRecommended.length; i++) {
-        let nextSerial = await visibleRecommended[i].text()
-        console.log(nextSerial)
+      let visibleRecommendations = await this.driver.elementsByXPath(this.visibleSerials)
+      for (let i = 0; i < visibleRecommendations.length; i++) {
+        let nextSerial = await visibleRecommendations[i].text()
         if (nextSerial === serial) {
-          return visibleRecommended[i].click()
+          return await visibleRecommendations[i].click()
         }
       }
       await this.driver.swipe({
-        startX: 830, startY: 1640,
-        endX: 830, endY: 230,
+        startX: 830, startY: 1647,
+        endX: 830, endY: 223,
         duration: 800
       })
     }
   }
 
   async addToWatching (serial) {
-    await this.findShowInRecommended(serial)
-    await this.addShowToWatching()
+    await this.findAndOpenShowInRecommended(serial)
+    await this.addShowToWatchingCategory()
     await this.driver.back()
     await this.clickHamburgerIcon()
     await this.openEpisodes()
     let added = await this.driver.elementByXPath(`//android.widget.TextView[@text=${serial}]`)
+    console.log(`${serial} was added to Watching category.`)
     return added !== undefined
   }
 }
 
-module.exports = showsListPage
+module.exports = showsPage

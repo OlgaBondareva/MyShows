@@ -1,7 +1,11 @@
 let wd = require('wd')
+let actions = require('../helpers/actions')
 
 class basePage {
   constructor (driver) {
+    wd.addPromiseChainMethod('swipe', actions.swipe)
+    wd.addPromiseChainMethod('tap', actions.tap)
+
     this.driver = driver
     // id
     this.searchButton = 'ru.myshows.activity:id/action_search'
@@ -30,9 +34,8 @@ class basePage {
   async searchShow (serial) {
     await this.driver.elementById(this.searchButton).click()
     await this.driver.elementById(this.searchField).sendKeys(serial)
-    await (new wd.TouchAction(this.driver))
     // tap the search button on mobile keyboard
-      .tap({x: 992, y: 1698}).perform()
+    await this.driver.tap({x: 992, y: 1698})
   }
 
   async getSearchResults () {
