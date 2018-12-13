@@ -1,3 +1,4 @@
 exports.local = {
-  host: '127.0.0.1:4723'
+  host: 'localhost',
+  port: 4723
 }

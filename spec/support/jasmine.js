@@ -4,9 +4,7 @@ let jasmine = new Jasmine()
 jasmine.loadConfig({
   spec_dir: 'spec',
   spec_files: [
-    '../spec/test/*Spec.js',
-//    '../spec/test/searchSpec.js',
-    '!../spec/test/episodesSpec.js'
+    '../spec/test/testSpec.js',
   ],
   helpers: [
     '../spec/helpers/specHelper.js',

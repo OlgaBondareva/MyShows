@@ -1,5 +1,4 @@
 let wd = require('wd')
-let _ = require('../../node_modules/underscore')
 
 class basePage {
   constructor (driver) {
@@ -8,7 +7,7 @@ class basePage {
     this.searchButton = 'ru.myshows.activity:id/action_search'
     this.searchField = 'ru.myshows.activity:id/search_src_text'
     // xpath
-    this.searchResult = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.view.ViewGroup/android.support.v7.widget.RecyclerView/android.widget.RelativeLayout'
+    this.searchResults = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.view.ViewGroup/android.support.v7.widget.RecyclerView/android.widget.RelativeLayout[*]/android.widget.TextView'
   }
 
   getDriver () {
@@ -17,7 +16,7 @@ class basePage {
 
   async openApp (serverConfig, app, caps, timeout = 30000) {
     this.driver = wd.promiseChainRemote(serverConfig)
-    let desired = _.clone(require(caps).android27)
+    let desired = require(caps).android27
     desired.app = require(app).androidApiDemos
     return this.driver.init(desired).setImplicitWaitTimeout(timeout)
   }
@@ -32,11 +31,17 @@ class basePage {
     await this.driver.elementById(this.searchButton).click()
     await this.driver.elementById(this.searchField).sendKeys(serial)
     await (new wd.TouchAction(this.driver))
+    // tap the search button on mobile keyboard
       .tap({x: 992, y: 1698}).perform()
   }
 
-  async getFirstResult () {
-    return await this.driver.elementByXPath(this.searchResult)
+  async getSearchResults () {
+    let results = []
+    let elements = await this.driver.elementsByXPath(this.searchResults)
+    for (let i = 0; i < elements.length; i++) {
+      results.push(await elements[i].text())
+    }
+    return results
   }
 }
 
