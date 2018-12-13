@@ -9,3 +9,10 @@ exports.swipe = function (opts) {
     .release()
   return this.performTouchAction(action)
 }
+
+exports.tap = function (opts) {
+  let action = new wd.TouchAction()
+  action
+    .tap({x: opts.x, y: opts.y})
+  return this.performTouchAction(action)
+}
