@@ -35,17 +35,22 @@ class navigationDrawer extends basePage {
     await this.navigationDrawerButton.click()
     await this.logoutButton.click()
     await this.driver.waitForElementById(this.logoutAlertId, 5000, 500)
-    return await this.yesOnExit.click()
+    await this.yesOnExit.click()
   }
 
   async openSettings () {
     await this.navigationDrawerButton.click()
-    return await this.settingsButton.click()
+    await this.settingsButton.click()
   }
 
   async openEpisodes () {
     await this.navigationDrawerButton.click()
     await this.episodesButton.click()
+  }
+
+  async openShows () {
+    await this.navigationDrawerButton.click()
+    await this.showsButton.click()
   }
 }
 

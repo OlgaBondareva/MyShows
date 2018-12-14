@@ -3,12 +3,12 @@ let serverConfigs = require('../helpers/appium-server')
 let credentials = require('../properties/creds')
 let loginPage = require('../pageObject/loginPage')
 let episodesPage = require('../pageObject/showsPage')
-// let helper = require('../helpers/specHelper')
 
 describe('MyShows', function () {
   let driver
   let login, episodes
-  let serial = 'The Big Bang Theory'
+  let serial1 = 'The Big Bang Theory'
+  let serial2 = 'Death Note'
 
   beforeAll(async function () {
     let serverConfig = serverConfigs.local
@@ -36,17 +36,18 @@ describe('MyShows', function () {
   })
 
   xit('should search requested series', async function () {
-    await login.searchShow(serial)
+    await login.searchShow(serial1)
     let results = await login.getSearchResults()
     for (let i = 0; i < results.length; i++) {
-      expect(results[i].indexOf(serial) !== -1).toBeTrue()
+      expect(results[i].indexOf(serial1) !== -1).toBeTrue()
     }
   })
 
-  it('should login with right credentials', async function () {
+  it('should add given serial to watching category', async function () {
     episodes = await new episodesPage(login.getDriver())
-    // await episodes.findAndOpenShowInRecommended('Death Note')
-    let isAdded = await episodes.addToWatching('Death Note')
+    await episodes.addToWatching(serial2)
+    let isAdded = await episodes.checkWatchingEpisodes(serial2)
     expect(isAdded).toBeTrue()
+    await episodes.removeFromWatching(serial2)
   })
 })
