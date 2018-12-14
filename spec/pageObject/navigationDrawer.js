@@ -4,9 +4,11 @@ let locators = require('../properties/locators')
 class navigationDrawer extends basePage {
   constructor (driver) {
     super(driver)
+    this.navDrawerXPath = '//android.widget.ImageButton[@content-desc="Open navigation drawer"]'
+    this.logoutAlertId = 'ru.myshows.activity:id/alertTitle'
   }
 
-  get navigationDrawerButton () {return this.driver.elementByXPath('//android.widget.ImageButton[@content-desc="Open navigation drawer"]')}
+  get navigationDrawerButton () {return this.driver.elementByXPath(this.navDrawerXPath)}
 
   get episodesButton () {return this.driver.elementByXPath(locators.navigationDrawerXpath + '[1]')}
 
@@ -20,21 +22,19 @@ class navigationDrawer extends basePage {
 
   get logoutButton () {return this.driver.elementByXPath(locators.navigationDrawerXpath + '[6]')}
 
-  get logoutAlert () {return this.driver.elementById('ru.myshows.activity:id/alertTitle')}
+  get logoutAlert () {return this.driver.elementById(this.logoutAlertId)}
 
   get yesOnExit () {return this.driver.elementById('android:id/button1')}
 
   async isLoggedIn () {
-    let navDrawer = await this.driver.elementByXPath(this.navigationDrawerButton)
-    return navDrawer !== undefined
+    await this.driver.waitForElementByXPath(this.navDrawerXPath, 5000, 500)
+    return this.navigationDrawerButton.isDisplayed()
   }
 
   async logout () {
     await this.navigationDrawerButton.click()
     await this.logoutButton.click()
-    // todo
-    // fix. Change wait method or add xpath to constructor
-    await this.driver.waitForElementByXPath(this.logoutAlert, 30000)
+    await this.driver.waitForElementById(this.logoutAlertId, 5000, 500)
     return await this.yesOnExit.click()
   }
 
