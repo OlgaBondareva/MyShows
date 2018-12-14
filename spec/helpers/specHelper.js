@@ -1,3 +1,3 @@
 beforeAll(async function () {
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000
 })
