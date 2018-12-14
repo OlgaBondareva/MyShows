@@ -14,22 +14,10 @@ class loginPage extends navigationDrawer {
 
   get loginField () {return this.driver.elementById('ru.myshows.activity:id/login_field')}
 
-  async typeLogin (login) {
-    await this.loginField.type(login)
-  }
-
-  async typePassword (pass) {
-    await this.passField.type(pass)
-  }
-
-  async clickLoginButton () {
-    await this.loginButton.click()
-  }
-
   async enterCredentialsAndSubmit (login, password) {
-    await this.typeLogin(login)
-    await this.typePassword(password)
-    await this.clickLoginButton()
+    await this.loginField.type(login)
+    await this.passField.type(password)
+    await this.loginButton.click()
   }
 
   async getTitle () {
