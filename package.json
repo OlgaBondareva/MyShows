@@ -10,7 +10,10 @@
     "wd": "^1.11.1"
   },
   "scripts": {
-    "test": "node spec/support/jasmine.js"
+    "run-appium": "appium",
+    "run-emu": "emulator @Nexus",
+    "config": "npm run cd-to-emu && npm run run-appium",
+    "test": "npm run config && node spec/support/jasmine.js"
   },
   "repository": {
     "type": "git",
