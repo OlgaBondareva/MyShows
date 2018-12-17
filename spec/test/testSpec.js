@@ -4,6 +4,11 @@ let credentials = require('../properties/creds')
 let loginPage = require('../pageObject/loginPage')
 let episodesPage = require('../pageObject/showsPage')
 
+/*const {AndroidDriver} = require(`appium-android-driver`)
+
+let path = require('path')
+let MyShows = path.resolve('apk', 'MyShows.apk')*/
+
 describe('MyShows', function () {
   let driver
   let login, episodes
@@ -11,6 +16,15 @@ describe('MyShows', function () {
   let serial2 = 'Death Note'
 
   beforeAll(async function () {
+/*    let defCaps = {
+      app: MyShows,
+      avd: 'Nexus2',
+      platformName: 'Android',
+      deviceName: 'Nexus2'
+    }
+    let aDriver = new AndroidDriver()
+    await aDriver.createSession(defCaps)*/
+
     let serverConfig = serverConfigs.local
     driver = await wd.promiseChainRemote(serverConfig)
 
