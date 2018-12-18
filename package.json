@@ -12,10 +12,10 @@
   },
   "scripts": {
     "run-appium": "appium",
-    "run-emu": "emulator @Nexus2",
-    "config": "npm-run-all --parallel run-appium run-emu",
+    "run-emu": "emulator @Nexus",
+    "config": "run-p run-appium run-emu",
     "jasmine": "node spec/support/jasmine.js",
-    "test": "npm-run-all --parallel config jasmine"
+    "test": "run-p config jasmine"
   },
   "repository": {
     "type": "git",
