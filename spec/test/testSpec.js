@@ -13,9 +13,9 @@ describe('MyShows', function () {
   beforeAll(async function () {
     let serverConfig = serverConfigs.local
     driver = await wd.promiseChainRemote(serverConfig)
-
+    await driver.sleep(30000)
     let desired = require('../helpers/caps').android27
-    desired.app = require('../helpers/app').androidApiDemos
+    desired.app = require('../helpers/app').androidMyShows
     await driver.init(desired).setImplicitWaitTimeout(50000)
   })
 
@@ -24,7 +24,6 @@ describe('MyShows', function () {
   })
 
   it('should have right title on login page', async function () {
-    await driver.sleep(30000)
     login = await new loginPage(driver)
     let title = await login.getTitle()
     expect(title === 'my shows').toBeTrue()
@@ -36,7 +35,7 @@ describe('MyShows', function () {
     expect(isLogged).toBeTrue()
   })
 
-  xit('should search requested series', async function () {
+  it('should search requested series', async function () {
     await login.searchShow(serial1)
     let results = await login.getSearchResults()
     for (let i = 0; i < results.length; i++) {
