@@ -1,5 +1,4 @@
 let basePage = require('.//basePage')
-let locators = require('../properties/locators')
 
 class navigationDrawer extends basePage {
   constructor (driver) {
@@ -10,17 +9,17 @@ class navigationDrawer extends basePage {
 
   get navigationDrawerButton () {return this.driver.elementByXPath(this.navDrawerXPath)}
 
-  get episodesButton () {return this.driver.elementByXPath(locators.navigationDrawerXpath + '[1]')}
+  get episodesButton () {return this.driver.elementByXPath('//*[@text=\'Episodes\']')}
 
-  get showsButton () {return this.driver.elementByXPath(locators.navigationDrawerXpath + '[2]')}
+  get showsButton () {return this.driver.elementByXPath('//*[@text=\'Shows\']')}
 
-  get newsButton () {return this.driver.elementByXPath(locators.navigationDrawerXpath + '[3]')}
+  get newsButton () {return this.driver.elementByXPath('//*[@text=\'News\']')}
 
-  get settingsButton () {return this.driver.elementByXPath(locators.navigationDrawerXpath + '[4]')}
+  get settingsButton () {return this.driver.elementByXPath('//*[@text=\'Settings\']')}
 
-  get hideAdvertisingButton () {return this.driver.elementByXPath(locators.navigationDrawerXpath + '[5]')}
+  get hideAdvertisingButton () {return this.driver.elementByXPath('//*[@text=\'Hide advertising\']')}
 
-  get logoutButton () {return this.driver.elementByXPath(locators.navigationDrawerXpath + '[6]')}
+  get logoutButton () {return this.driver.elementByXPath('//*[@text=\'Logout\']')}
 
   get logoutAlert () {return this.driver.elementById(this.logoutAlertId)}
 
