@@ -1,4 +1,4 @@
 let path = require('path')
-let MyShows = path.resolve(  'apk', 'MyShows.apk')
+let MyShows = path.resolve('apk', 'MyShows.apk')
 
-exports.androidApiDemos = MyShows
+exports.androidMyShows = MyShows
