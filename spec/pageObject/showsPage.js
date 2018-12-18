@@ -9,8 +9,6 @@ class showsPage extends showPage {
   get backButton () {return this.driver.elementByXPath('//android.widget.ImageButton[@content-desc="Navigate up"]')}
 
   async findAndOpenShow (serial) {
-    // tap in the center to find more shows
-    await this.driver.tap({x: 540, y: 960})
     while (true) {
       this.driver.sleep(3000)
       let visibleRecommendations = await this.driver.elementsByXPath(this.visibleSerialsXPath)
@@ -31,6 +29,7 @@ class showsPage extends showPage {
   }
 
   async addToWatching (serial) {
+    await this.openShows()
     await this.findAndOpenShow(serial)
     await this.addShowToWatchingCategory()
     await this.backButton.click()
