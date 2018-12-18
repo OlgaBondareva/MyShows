@@ -15,7 +15,7 @@
     "run-emu": "emulator @Nexus",
     "config": "run-p run-appium run-emu",
     "jasmine": "node spec/support/jasmine.js",
-    "test": "run-p config jasmine"
+    "test": "run-p -r config jasmine"
   },
   "repository": {
     "type": "git",
