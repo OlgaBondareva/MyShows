@@ -16,7 +16,8 @@ describe('MyShows', function () {
     await driver.sleep(30000)
     let desired = require('../helpers/caps').android27
     desired.app = require('../helpers/app').androidMyShows
-    await driver.init(desired).setImplicitWaitTimeout(50000)
+    await driver.init(desired).setImplicitWaitTimeout(15000)
+    await driver.setPageLoadTimeout(3000)
   })
 
   afterAll(async function () {
@@ -41,6 +42,7 @@ describe('MyShows', function () {
     for (let i = 0; i < results.length; i++) {
       expect(results[i].indexOf(serial1) !== -1).toBeTrue()
     }
+    await login.doubleClickBack()
   })
 
   it('should add given serial to watching category', async function () {

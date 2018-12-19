@@ -6,8 +6,6 @@ class showsPage extends showPage {
     this.visibleSerialsXPath = '//android.support.v7.widget.RecyclerView//android.widget.TextView[@class=\'android.widget.TextView\']'
   }
 
-  get backButton () {return this.driver.elementByXPath('//android.widget.ImageButton[@content-desc="Navigate up"]')}
-
   async findAndOpenShow (serial) {
     while (true) {
       this.driver.sleep(3000)
