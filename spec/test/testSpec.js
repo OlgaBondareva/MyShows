@@ -1,55 +1,54 @@
 let wd = require('wd')
 let serverConfigs = require('../helpers/appium-server')
 let credentials = require('../properties/creds')
-let loginPage = require('../pageObject/loginPage')
-let episodesPage = require('../pageObject/showsPage')
+let loginPage = require('../pageObject/LoginPage')
+let episodesPage = require('../pageObject/ShowsPage')
 
-describe('MyShows', function () {
+describe('MyShows', () => {
   let driver
   let login, episodes
-  let serial1 = 'The Big Bang Theory'
-  let serial2 = 'Death Note'
+  let series1 = 'Big Bang'
+  let series2 = 'Death Note'
 
-  beforeAll(async function () {
+  beforeAll(async () => {
     let serverConfig = serverConfigs.local
     driver = await wd.promiseChainRemote(serverConfig)
     await driver.sleep(30000)
     let desired = require('../helpers/caps').android27
     desired.app = require('../helpers/app').androidMyShows
-    await driver.init(desired).setImplicitWaitTimeout(15000)
-    await driver.setPageLoadTimeout(3000)
+    await driver.init(desired).setImplicitWaitTimeout(6000)
   })
 
-  afterAll(async function () {
+  afterAll(async () => {
     await driver.quit()
   })
 
-  it('should have right title on login page', async function () {
+  it('should have right title on login page', async () => {
     login = await new loginPage(driver)
     let title = await login.getTitle()
-    expect(title === 'my shows').toBeTrue()
+    expect(title).toEqual('my shows')
   })
 
-  it('should login with right credentials', async function () {
+  it('should login with right credentials', async () => {
     await login.enterCredentialsAndSubmit(credentials.login, credentials.pass)
     let isLogged = await login.isLoggedIn()
     expect(isLogged).toBeTrue()
   })
 
-  it('should search requested series', async function () {
-    await login.searchShow(serial1)
+  it('should search requested series', async () => {
+    await login.searchShow(series1)
     let results = await login.getSearchResults()
     for (let i = 0; i < results.length; i++) {
-      expect(results[i].indexOf(serial1) !== -1).toBeTrue()
+      expect(results[i].indexOf(series1) !== -1).toBeTrue()
     }
     await login.doubleClickBack()
   })
 
-  it('should add given serial to watching category', async function () {
-    episodes = await new episodesPage(login.getDriver())
-    await episodes.addToWatching(serial2)
-    let isAdded = await episodes.checkWatchingEpisodes(serial2)
+  it('should add given series to watching category', async () => {
+    episodes = await new episodesPage(driver)
+    await episodes.addToWatching(series2)
+    let isAdded = await episodes.isSeriesAddedToWatching(series2)
     expect(isAdded).toBeTrue()
-    await episodes.removeFromWatching(serial2)
+    await episodes.removeFromWatching(series2)
   })
 })

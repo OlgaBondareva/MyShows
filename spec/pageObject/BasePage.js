@@ -1,32 +1,36 @@
 let wd = require('wd')
 let actions = require('../helpers/actions')
 let dHelper = require('../helpers/driverHelper')
+let NavDrawer = require('./NavigationDrawer')
 
-class basePage {
+class BasePage {
   constructor (driver) {
     wd.addPromiseChainMethod('swipe', actions.swipe)
     wd.addPromiseChainMethod('tap', actions.tap)
 
     this.driver = driver
+    this.navDrawer = new NavDrawer(this.driver)
   }
 
   get searchButton () { return this.driver.elementById('ru.myshows.activity:id/action_search')}
 
   get searchField () { return this.driver.elementById('ru.myshows.activity:id/search_src_text')}
 
-  get searchResults () { return this.driver.elementsByXPath('//android.support.v7.widget.RecyclerView/android.widget.RelativeLayout/android.widget.TextView')}
+  get searchResults () { return this.driver.elementsById('ru.myshows.activity:id/show_name')}
 
-  get backButton () {return this.driver.elementByXPath('//android.widget.ImageButton[@content-desc="Navigate up"]')}
+  //todo: do smt 
+  get backButton () { return this.driver.elementByAccessibilityId('Navigate up')}
 
-  get collapseButton () {return this.driver.elementByXPath('//android.widget.ImageButton[@content-desc="Collapse"]')}
+  get collapseButton () { return this.driver.elementByAccessibilityId('Collapse')}
 
-  getDriver () {
-    return this.driver
+  async isLoggedIn () {
+    await this.driver.sleep(3000)
+    return this.navDrawer.navigationDrawerButton.isDisplayed()
   }
 
-  async searchShow (serial) {
+  async searchShow (series) {
     await this.searchButton.click()
-    await this.searchField.sendKeys(serial)
+    await this.searchField.sendKeys(series)
     await this.driver.waitFor(dHelper.keyboardIsShown, 3000, 500)
     // tap the search button on mobile keyboard
     await this.driver.tap({x: 992, y: 1698})
@@ -39,13 +43,14 @@ class basePage {
     for (let i = 0; i < elements.length; i++) {
       results.push(await elements[i].text())
     }
+    console.log(elements)
     return results
   }
 
-  async doubleClickBack() {
+  async doubleClickBack () {
     await this.backButton.click()
     await this.collapseButton.click()
   }
 }
 
-module.exports = basePage
+module.exports = BasePage
